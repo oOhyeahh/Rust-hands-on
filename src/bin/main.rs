@@ -12,13 +12,13 @@ fn main() {
     let thread_size = 4;
     let pool = ThreadPool::new(thread_size);
 
-    for stream in listener.incoming() {
+    // listen to first 2 request
+    for stream in listener.incoming().take(2) {
         let stream = stream.unwrap();
 
         pool.execute(|| {
             handle_connection(stream)
         })
-        // handle_connection(stream);
     }
 }
 
